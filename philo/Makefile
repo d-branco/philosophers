@@ -1,0 +1,63 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
+#    Updated: 2025/02/17 18:31:12 by abessa-m         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME			:= philo
+##################################################################### Compiler #
+CC				:= cc
+CFLAGS			:= -Wall -Wextra -Werror -g 
+########################################################### Intermidiate steps #
+RM				:= rm -f
+AR				:= ar rcs
+########################################################## Objects and Headers #
+#HEADERS		:= philo.h
+SRCS			:= \
+	main.c
+OBJS			:= $(SRCS:.c=.o)
+###################################################################### Targets #
+all: $(NAME)
+
+$(NAME): $(OBJS) 
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@ \
+	&& echo "$(GRAY)Compiled:$(COR) $(SRCS)"
+
+clean:
+	@$(RM) *.o *.gch \
+	; echo "$(GRAY)cleaned sources$(COR)" 
+
+fclean: clean
+	@$(RM) $(NAME) $(NAME-BONUS) \
+	&& echo "$(GRAY)cleaned$(COR) $(NAME)" 
+
+re: fclean all
+	@echo "$(GRAY)redone$(COR)"
+
+.PHONY: all clean fclean re
+####################################################################### Colors #
+COR		:= \033[0m# COlor Remove
+PURPLE	:= \033[1;35m# purple
+GRAY	:= \033[1;90m# gray
+YELLOW	:= \033[1;93m# yellow
+######################################################################### Test #
+#Recomendation: alias t="make test"
+#test: all
+#	@echo -n "$(YELLOW)" ; \
+#	norminette *.h *.c | grep -v -E \
+#	"Too many functions in file|Comment is invalid in this scope" \
+#	| grep Error ; echo -n "$(COR)" ; \
+#	valgrind --quiet --show-error-list=yes \
+#	--leak-check=full --track-origins=yes \
+#	./philo 4 4 4 4 && \
+#	echo "$(GRAY)Return value: $$?$(COR)" ; \
+#	$(RM) *.o *.gch ; 
