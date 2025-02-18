@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/17 18:31:12 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/18 10:04:25 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,13 +51,13 @@ GRAY	:= \033[1;90m# gray
 YELLOW	:= \033[1;93m# yellow
 ######################################################################### Test #
 #Recomendation: alias t="make test"
-#test: all
-#	@echo -n "$(YELLOW)" ; \
-#	norminette *.h *.c | grep -v -E \
-#	"Too many functions in file|Comment is invalid in this scope" \
-#	| grep Error ; echo -n "$(COR)" ; \
-#	valgrind --quiet --show-error-list=yes \
-#	--leak-check=full --track-origins=yes \
-#	./philo 4 4 4 4 && \
-#	echo "$(GRAY)Return value: $$?$(COR)" ; \
-#	$(RM) *.o *.gch ; 
+test: all
+	@echo -n "$(YELLOW)" ; \
+	norminette *.h *.c | grep -v -E \
+	"Too many functions in file|Comment is invalid in this scope" \
+	| grep Error ; echo -n "$(COR)" ; \
+	valgrind --quiet --show-error-list=yes \
+	--leak-check=full --track-origins=yes \
+	./philo 42 225 225 225 0 && \
+	echo "$(GRAY)Return value: $$?$(COR)" ; \
+	$(RM) *.o *.gch ; 
