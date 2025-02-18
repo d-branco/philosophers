@@ -42,4 +42,32 @@ sem_post, sem_wait, sem_unlink
 	//usleep(), 
 # include <sys/time.h>	//gettimeofday(), 
 
+typedef struct s_info			t_info;
+typedef struct s_philosopher	t_philosopher;
+
+struct s_info
+{
+	int				verbose;
+	int				n_philosophers;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_zzz;
+	int				must_eat;
+	int				*fork_use;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_mutex;
+};
+
+struct s_philosopher
+{
+	int		seat;
+	int		n_servings;
+};
+
+//	initialize.c
+int		init_arguments(int argc, char **argv, int verbose);
+t_info	*initialize_dinner(int argc, char **argv, int verbose);
+//	utils.c
+int		ft_atoi(const char *nptr);
+
 #endif

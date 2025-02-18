@@ -6,11 +6,11 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/18 14:13:58 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/18 20:50:32 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			:= philo
+NAME			:= philo/philo
 ##################################################################### Compiler #
 CC				:= cc
 CFLAGS			:= -Wall -Wextra -Werror -g -pthread 
@@ -20,7 +20,8 @@ AR				:= ar rcs
 ########################################################## Objects and Headers #
 #HEADERS		:= philo.h
 SRCS			:= \
-	main.c
+	philo/main.c \
+	philo/initialize.c philo/utils.c 
 OBJS			:= $(SRCS:.c=.o)
 ###################################################################### Targets #
 all: $(NAME)
@@ -56,8 +57,7 @@ test: all
 	norminette *.h *.c | grep -v -E \
 	"Too many functions in file|Comment is invalid in this scope" \
 	| grep Error ; echo -n "$(COR)" ; \
-	valgrind --quiet --show-error-list=yes \
-	--leak-check=full --track-origins=yes \
-	./philo 42 225 225 225 0 && \
+	valgrind --quiet --show-error-list=yes --tool=helgrind \
+	./philo/philo 42 225 225 225 0 && \
 	echo "$(GRAY)Return value: $$?$(COR)" ; \
 	$(RM) *.o *.gch ; 
