@@ -6,14 +6,14 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/18 10:04:25 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/18 14:13:58 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			:= philo
 ##################################################################### Compiler #
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -g 
+CFLAGS			:= -Wall -Wextra -Werror -g -pthread 
 ########################################################### Intermidiate steps #
 RM				:= rm -f
 AR				:= ar rcs

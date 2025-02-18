@@ -6,13 +6,13 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:47 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/18 10:11:41 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:32:19 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*	mandatory
+/*	mandatory		Each philosopher should be a thread!
 pthread_mutex_init,
 pthread_mutex_destroy,
 pthread_mutex_lock,
@@ -26,10 +26,29 @@ usleep, gettimeofday,
 int	init_arguments(int argc, char **argv);
 int	ft_atoi(const char *nptr);
 
+void	*routine(void *ptr)
+{
+	printf("Test from a thread!\n");
+	usleep(3 * 1000 * 1000);
+	printf("Ending thread\n");
+	return (ptr);
+}
+
 int	main(int argc, char **argv)
 {
+	pthread_t	t1;
+	pthread_t	t2;
+
 	if (init_arguments(argc, argv))
 		return (1);
+	if (pthread_create(&t1, NULL, &routine, NULL) != 0)
+		return (2);
+	if (pthread_create(&t2, NULL, &routine, NULL) != 0)
+		return (2);
+	if (pthread_join(t1, NULL) != 0)
+		return (2);
+	if (pthread_join(t2, NULL) != 0)
+		return (2);
 	return (0);
 }
 
