@@ -6,14 +6,14 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/18 20:50:32 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/19 12:01:11 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			:= philo/philo
 ##################################################################### Compiler #
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -g -pthread 
+CFLAGS			:= -pthread -g -Wall -Wextra -Werror
 ########################################################### Intermidiate steps #
 RM				:= rm -f
 AR				:= ar rcs
@@ -21,12 +21,12 @@ AR				:= ar rcs
 #HEADERS		:= philo.h
 SRCS			:= \
 	philo/main.c \
-	philo/initialize.c philo/utils.c 
+	philo/initialize.c philo/utils.c
 OBJS			:= $(SRCS:.c=.o)
 ###################################################################### Targets #
 all: $(NAME)
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.c
@@ -35,11 +35,11 @@ $(NAME): $(OBJS)
 
 clean:
 	@$(RM) *.o *.gch \
-	; echo "$(GRAY)cleaned sources$(COR)" 
+	; echo "$(GRAY)cleaned sources$(COR)"
 
 fclean: clean
 	@$(RM) $(NAME) $(NAME-BONUS) \
-	&& echo "$(GRAY)cleaned$(COR) $(NAME)" 
+	&& echo "$(GRAY)cleaned$(COR) $(NAME)"
 
 re: fclean all
 	@echo "$(GRAY)redone$(COR)"
@@ -54,10 +54,10 @@ YELLOW	:= \033[1;93m# yellow
 #Recomendation: alias t="make test"
 test: all
 	@echo -n "$(YELLOW)" ; \
-	norminette *.h *.c | grep -v -E \
+	norminette | grep -v -E \
 	"Too many functions in file|Comment is invalid in this scope" \
 	| grep Error ; echo -n "$(COR)" ; \
 	valgrind --quiet --show-error-list=yes --tool=helgrind \
 	./philo/philo 42 225 225 225 0 && \
 	echo "$(GRAY)Return value: $$?$(COR)" ; \
-	$(RM) *.o *.gch ; 
+	$(RM) *.o *.gch ;

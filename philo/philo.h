@@ -30,22 +30,22 @@ waitpid, sem_open, sem_close,
 sem_post, sem_wait, sem_unlink
 */
 
-# include <pthread.h>	//pthread_mutex_init(), pthread_mutex_destroy(), 
+# include <pthread.h>	//pthread_mutex_init(), pthread_mutex_destroy(),
 	//pthread_mutex_lock(), pthread_mutex_unlock(),
-	//pthread_create(), 
-	//pthread_detach(), 
-	//pthread_join(), 
+	//pthread_create(),
+	//pthread_detach(),
+	//pthread_join(),
 # include <string.h>	//memset(),
 # include <stdio.h>		//printf(),
-# include <stdlib.h>	//malloc(), free(), 
+# include <stdlib.h>	//malloc(), free(),
 # include <unistd.h>	//write(),
-	//usleep(), 
-# include <sys/time.h>	//gettimeofday(), 
+	//usleep(),
+# include <sys/time.h>	//gettimeofday(),
 
-typedef struct s_info			t_info;
+typedef struct s_dinner			t_dinner;
 typedef struct s_philosopher	t_philosopher;
 
-struct s_info
+struct s_dinner
 {
 	int				verbose;
 	int				n_philosophers;
@@ -60,14 +60,17 @@ struct s_info
 
 struct s_philosopher
 {
-	int		seat;
-	int		n_servings;
+	t_dinner	*dinner;
+	int			seat;
+	int			meals_eaten;
 };
 
 //	initialize.c
-int		init_arguments(int argc, char **argv, int verbose);
-t_info	*initialize_dinner(int argc, char **argv, int verbose);
+int				init_arguments(int argc, char **argv, int verbose);
+t_dinner		*initialize_dinner(int argc, char **argv, int verbose);
+t_philosopher	*initialize_philosophers(t_dinner	*dinner);
+void			free_and_close(t_philosopher *philosophers, t_dinner *dinner);
 //	utils.c
-int		ft_atoi(const char *nptr);
+int				ft_atoi(const char *nptr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:47 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/18 20:49:17 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:02:26 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,29 @@ usleep, gettimeofday,
 
 int	main(int argc, char **argv)
 {
-	t_info	*info;
-	int		verbose;
+	t_dinner		*dinner;
+	t_philosopher	*philosophers;
+	int				verbose;
+	//pthread_t		*threads;
+	//int				i;
 
 	verbose = 1;
 	if (init_arguments(argc, argv, verbose))
 		return (1);
-	info = initialize_dinner(argc, argv, verbose);
-	if (info == NULL)
+	dinner = initialize_dinner(argc, argv, verbose);
+	if (dinner == NULL)
 		return (2);
-	return (0);
+	philosophers = initialize_philosophers(dinner);
+	//if (philosophers == NULL)
+	//	return (free_and_close(NULL, &dinner), 3);
+	//i = 0;
+	//while (i < &dinner->n_philosophers)
+	//{
+	//	pthread_create(&threads[i], NULL, philosopher_thread, &philosophers[i])
+	//	i++;
+	//}
+	//i = 0;
+	//while (i < &dinner->n_philosophers)
+	//	pthread_join(&threads[i++], NULL);
+	return (free_and_close(philosophers, dinner), 0);
 }
