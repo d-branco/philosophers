@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/20 17:56:25 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/20 19:35:43 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ GRAY	:= \033[1;90m# gray
 YELLOW	:= \033[1;93m# yellow
 ######################################################################### Test #
 #Recomendation: alias t="make test"
-ARG-TEST	:= 4 1 1000 3000 3
+#ARG-TEST	:= 2 62 60 60
+ARG-TEST	:= 200 62 60 60
 
 test: all
 	@echo -n "$(YELLOW)" ; \
