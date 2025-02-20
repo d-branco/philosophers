@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:04:45 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/20 16:03:55 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:24:44 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_dinner	*initialize_dinner(int argc, char **argv, int verbose)
 	dinner->time_to_eat = ft_atoi(argv[3]);
 	dinner->time_to_zzz = ft_atoi(argv[4]);
 	dinner->must_eat = 2147483647;
+	dinner->n_dead = 0;
 	if (argc == 5 + 1)
 		dinner->must_eat = ft_atoi(argv[5]);
 	dinner->forks = malloc(dinner->n_philosophers * sizeof(pthread_mutex_t));

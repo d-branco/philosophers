@@ -53,7 +53,7 @@ struct s_dinner
 	int				time_to_eat;
 	int				time_to_zzz;
 	int				must_eat;
-	int				*fork_use;
+	int				n_dead;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 };
@@ -63,6 +63,7 @@ struct s_philosopher
 	t_dinner	*dinner;
 	int			seat;
 	int			meals_eaten;
+	long long	last_meal_time;
 };
 
 //	initialize.c
@@ -73,6 +74,7 @@ pthread_t		*initialize_threads(t_dinner *dinner,
 					t_philosopher *philosophers);
 void			free_and_close(t_philosopher *philosophers, t_dinner *dinner);
 //	utils.c
+long long		get_time(void);
 int				ft_atoi(const char *nptr);
 //	thread.c
 void			*philosopher_thread(void *arg);
