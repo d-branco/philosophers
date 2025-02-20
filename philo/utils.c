@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:05:48 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/20 17:07:11 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:34:00 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ long long	get_time(void)
 	struct timeval	s_tv;
 
 	gettimeofday(&s_tv, NULL);
-	current_time = (s_tv.tv_sec + 1000) + (s_tv.tv_usec / 1000);
+	current_time = (s_tv.tv_sec * 1000) + (s_tv.tv_usec / 1000);
 	return (current_time);
 }
 

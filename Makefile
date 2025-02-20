@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/20 16:07:16 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/20 17:56:25 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ AR				:= ar rcs
 SRCS			:= \
 	philo/main.c \
 	philo/initialize.c philo/utils.c \
-	philo/thread.c 
+	philo/thread.c
 OBJS			:= $(SRCS:.c=.o)
 ###################################################################### Targets #
 all: $(NAME)
@@ -53,6 +53,8 @@ GRAY	:= \033[1;90m# gray
 YELLOW	:= \033[1;93m# yellow
 ######################################################################### Test #
 #Recomendation: alias t="make test"
+ARG-TEST	:= 4 1 1000 3000 3
+
 test: all
 	@echo -n "$(YELLOW)" ; \
 	norminette | grep -v -E \
@@ -61,14 +63,14 @@ test: all
 	echo "$(YELLOW)	Checking for memory issues $(COR)" ; \
 	valgrind --quiet --show-error-list=yes \
 	--leak-check=full --show-leak-kinds=all --track-origins=yes \
-	./philo/philo 42 225 225 225 0 && \
+	./philo/philo $(ARG-TEST) && \
 	echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \
 	valgrind --quiet --show-error-list=yes \
 	--tool=helgrind \
-	./philo/philo 42 225 225 225 0 && \
+	./philo/philo $(ARG-TEST) && \
 	echo "$(YELLOW)	Checking thread issues with DRD $(COR)" ; \
 	valgrind --quiet --show-error-list=yes \
 	--tool=drd \
-	./philo/philo 42 225 225 225 0 && \
+	./philo/philo $(ARG-TEST) && \
 	echo "$(GRAY)Return value: $$?$(COR)" ; \
 	$(RM) *.o *.gch
