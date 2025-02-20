@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/19 12:01:11 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/20 16:07:16 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ AR				:= ar rcs
 #HEADERS		:= philo.h
 SRCS			:= \
 	philo/main.c \
-	philo/initialize.c philo/utils.c
+	philo/initialize.c philo/utils.c \
+	philo/thread.c 
 OBJS			:= $(SRCS:.c=.o)
 ###################################################################### Targets #
 all: $(NAME)
@@ -57,7 +58,17 @@ test: all
 	norminette | grep -v -E \
 	"Too many functions in file|Comment is invalid in this scope" \
 	| grep Error ; echo -n "$(COR)" ; \
-	valgrind --quiet --show-error-list=yes --tool=helgrind \
+	echo "$(YELLOW)	Checking for memory issues $(COR)" ; \
+	valgrind --quiet --show-error-list=yes \
+	--leak-check=full --show-leak-kinds=all --track-origins=yes \
+	./philo/philo 42 225 225 225 0 && \
+	echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \
+	valgrind --quiet --show-error-list=yes \
+	--tool=helgrind \
+	./philo/philo 42 225 225 225 0 && \
+	echo "$(YELLOW)	Checking thread issues with DRD $(COR)" ; \
+	valgrind --quiet --show-error-list=yes \
+	--tool=drd \
 	./philo/philo 42 225 225 225 0 && \
 	echo "$(GRAY)Return value: $$?$(COR)" ; \
-	$(RM) *.o *.gch ;
+	$(RM) *.o *.gch

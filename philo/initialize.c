@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:04:45 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/19 12:02:01 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:03:55 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,25 @@ t_philosopher	*initialize_philosophers(t_dinner	*dinner)
 		i++;
 	}
 	return (philosophers);
+}
+
+pthread_t	*initialize_threads(t_dinner *dinner, t_philosopher *philosophers)
+{
+	pthread_t	*threads;
+	int			i;
+
+	threads = malloc(dinner->n_philosophers * sizeof(pthread_t));
+	if (threads == NULL)
+		return (NULL);
+	i = 0;
+	while (i < dinner->n_philosophers)
+	{
+		if (pthread_create(&threads[i], NULL,
+				philosopher_thread, &philosophers[i]) != 0)
+			return (free(threads), NULL);
+		i++;
+	}
+	return (threads);
 }
 
 void	free_and_close(t_philosopher *philosophers, t_dinner *dinner)

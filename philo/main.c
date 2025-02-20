@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:47 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/19 12:02:26 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:52:18 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	main(int argc, char **argv)
 	t_dinner		*dinner;
 	t_philosopher	*philosophers;
 	int				verbose;
-	//pthread_t		*threads;
-	//int				i;
+	pthread_t		*threads;
+	int				i;
 
 	verbose = 1;
 	if (init_arguments(argc, argv, verbose))
@@ -39,16 +39,14 @@ int	main(int argc, char **argv)
 	if (dinner == NULL)
 		return (2);
 	philosophers = initialize_philosophers(dinner);
-	//if (philosophers == NULL)
-	//	return (free_and_close(NULL, &dinner), 3);
-	//i = 0;
-	//while (i < &dinner->n_philosophers)
-	//{
-	//	pthread_create(&threads[i], NULL, philosopher_thread, &philosophers[i])
-	//	i++;
-	//}
-	//i = 0;
-	//while (i < &dinner->n_philosophers)
-	//	pthread_join(&threads[i++], NULL);
+	if (philosophers == NULL)
+		return (free_and_close(NULL, dinner), 3);
+	threads = initialize_threads(dinner, philosophers);
+	if (threads == NULL)
+		return (free_and_close(philosophers, dinner), 3);
+	i = 0;
+	while (i < dinner->n_philosophers)
+		pthread_join(threads[i++], NULL);
+	free(threads);
 	return (free_and_close(philosophers, dinner), 0);
 }

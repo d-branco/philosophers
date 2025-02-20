@@ -69,8 +69,12 @@ struct s_philosopher
 int				init_arguments(int argc, char **argv, int verbose);
 t_dinner		*initialize_dinner(int argc, char **argv, int verbose);
 t_philosopher	*initialize_philosophers(t_dinner	*dinner);
+pthread_t		*initialize_threads(t_dinner *dinner,
+					t_philosopher *philosophers);
 void			free_and_close(t_philosopher *philosophers, t_dinner *dinner);
 //	utils.c
 int				ft_atoi(const char *nptr);
+//	thread.c
+void			*philosopher_thread(void *arg);
 
 #endif
