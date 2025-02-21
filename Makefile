@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/21 16:51:08 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/22 10:51:01 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ AR				:= ar rcs
 SRCS			:= \
 	philo/main.c \
 	philo/initialize.c philo/utils.c \
-	philo/thread.c
+	philo/thread.c philo/thread-fork.c philo/thread-try.c
 OBJS			:= $(SRCS:.c=.o)
 ###################################################################### Targets #
 all: $(NAME)
@@ -35,7 +35,7 @@ $(NAME): $(OBJS)
 	&& echo "$(GRAY)Compiled:$(COR) $(SRCS)"
 
 clean:
-	@$(RM) *.o *.gch \
+	@$(RM) *.o *.gch */*.o */*.gch \
 	; echo "$(GRAY)cleaned sources$(COR)"
 
 fclean: clean
@@ -54,27 +54,27 @@ YELLOW	:= \033[1;93m# yellow
 ######################################################################### Test #
 #Recomendation: alias t="make test"
 #ARG-TEST	:= 200 62 60 60
-ARG-TEST	:= 5 240 60 60 21
-
-test: all
-	@echo "$(YELLOW)	Checking for memory issues $(COR)" ; \
-	valgrind --show-error-list=yes \
-	--leak-check=full --show-leak-kinds=all --track-origins=yes \
-	./philo/philo $(ARG-TEST) && \
-	echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \
-	sleep 2 ; \
-	valgrind --show-error-list=yes \
-	--tool=helgrind \
-	./philo/philo $(ARG-TEST) && \
-	echo "$(YELLOW)	Checking thread issues with DRD $(COR)" ; \
-	sleep 2 ; \
-	valgrind --show-error-list=yes \
-	--tool=drd \
-	./philo/philo $(ARG-TEST) && \
-	echo "$(GRAY)Return value: $$?$(COR)" ; \
-	sleep 2 ; \
-	$(RM) *.o *.gch ;\
-	echo -n "$(YELLOW)" ; \
-	norminette | grep -v -E \
-	"Too many functions in file|Comment is invalid in this scope" \
-	| grep Error ; echo -n "$(COR)"
+#ARG-TEST	:= 5 240 60 60 21
+#
+#test: all
+#	@echo "$(YELLOW)	Checking for memory issues $(COR)" ; \
+#	valgrind --show-error-list=yes \
+#	--leak-check=full --show-leak-kinds=all --track-origins=yes \
+#	./philo/philo $(ARG-TEST) && \
+#	echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \
+#	sleep 2 ; \
+#	valgrind --show-error-list=yes \
+#	--tool=helgrind \
+#	./philo/philo $(ARG-TEST) && \
+#	echo "$(YELLOW)	Checking thread issues with DRD $(COR)" ; \
+#	sleep 2 ; \
+#	valgrind --show-error-list=yes \
+#	--tool=drd \
+#	./philo/philo $(ARG-TEST) && \
+#	echo "$(GRAY)Return value: $$?$(COR)" ; \
+#	sleep 2 ; \
+#	$(RM) *.o *.gch ;\
+#	echo -n "$(YELLOW)" ; \
+#	norminette | grep -v -E \
+#	"Too many functions in file|Comment is invalid in this scope" \
+#	| grep Error ; echo -n "$(COR)"

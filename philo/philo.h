@@ -78,5 +78,27 @@ long long		get_time(void);
 int				ft_atoi(const char *nptr);
 //	thread.c
 void			*philosopher_thread(void *arg);
+int				am_i_already_dead(t_philosopher *philosopher);
+void			will_i_be_dead(t_philosopher *philosopher,
+					long long time_it_takes);
+int				multi_philosopher_case(t_philosopher *philosopher);
+void			take_a_seat(t_philosopher *philosopher,
+					int f1, int f2);
+//	thread-fork.c
+void			drop_the_forks(t_philosopher *philosopher,
+					int f1, int f2);
+int				take_fork_two_or_die_trying(t_philosopher *philosopher,
+					int f1, int f2);
+int				take_fork_one_or_die_trying(t_philosopher *philosopher,
+					int first_fork);
+int				place_second_fork(t_philosopher *philosopher);
+int				place_first_fork(t_philosopher *philosopher);
+//	thread-try.c
+int				think_or_die_trying(t_philosopher *philosopher);
+int				sleep_or_die_trying(t_philosopher *philosopher);
+int				eat_or_die_trying(t_philosopher *philosopher,
+					int f1, int f2);
+void			philosophize_or_die_trying(t_philosopher *philosopher,
+					int f1, int f2);
 
 #endif
