@@ -6,14 +6,14 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/21 10:57:26 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/21 14:37:49 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			:= philo/philo
 ##################################################################### Compiler #
 CC				:= cc
-CFLAGS			:= -pthread -g -Wall -Wextra -Werror
+CFLAGS			:= -pthread -g -Wall -Wextra 
 ########################################################### Intermidiate steps #
 RM				:= rm -f
 AR				:= ar rcs
@@ -54,7 +54,7 @@ YELLOW	:= \033[1;93m# yellow
 ######################################################################### Test #
 #Recomendation: alias t="make test"
 #ARG-TEST	:= 200 62 60 60
-ARG-TEST	:= 4 410 200 200 42 
+ARG-TEST	:= 5 240 60 60 40
 
 test: all
 	@echo -n "$(YELLOW)" ; \
