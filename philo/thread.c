@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:51:58 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/21 14:10:45 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:20:06 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		am_i_already_dead(t_philosopher philosopher);
 void	will_i_be_dead(t_philosopher philosopher, long long time_it_takes);
+int		single_philosopher_case(t_philosopher philosopher);
 
 //	struct s_philosopher
 //		t_dinner	*dinner;
@@ -36,7 +37,6 @@ void	*philosopher_thread(void *arg)
 	second_fork = ((philosopher.seat - 1) + 1) - ((philosopher.seat - 1) % 2);
 	if (second_fork >= philosopher.dinner->n_philosophers)
 		second_fork = 0;
-	enter_loop = 1;//check deaths
 	usleep(philosopher.seat * 1000);
 	if (philosopher.dinner->verbose)
 	{
@@ -57,6 +57,7 @@ void	*philosopher_thread(void *arg)
 	}
 	philosopher.last_meal_time = get_time();
 	// only one
+	enter_loop = single_philosopher_case(philosopher);
 	while (enter_loop)
 	{
 		pthread_mutex_lock(&philosopher.dinner->forks[first_fork]);//take fork1
@@ -119,10 +120,8 @@ void	*philosopher_thread(void *arg)
 		will_i_be_dead(philosopher, philosopher.dinner->time_to_eat);
 		pthread_mutex_unlock(&philosopher.dinner->forks[first_fork]);//fork down
 		pthread_mutex_unlock(&philosopher.dinner->forks[second_fork]);//forkdown
-		
 		if (am_i_already_dead(philosopher))
 			break ;
-		
 		pthread_mutex_lock(&philosopher.dinner->print_mutex);//sleep
 		if (!philosopher.dinner->n_dead)
 			printf("\033[34m%lld %3i is sleeping\033[0m\n",
@@ -150,10 +149,33 @@ void	*philosopher_thread(void *arg)
 	return (arg);
 }
 
+int	single_philosopher_case(t_philosopher philosopher)
+{
+	if (philosopher.dinner->n_philosophers == 1)
+	{
+		pthread_mutex_lock(&philosopher.dinner->print_mutex);
+		printf("\033[35m%lld %3i has taken a fork\033[0m\n",
+			get_time(), philosopher.seat);
+		usleep(philosopher.dinner->time_to_die * 1000);
+		printf("\033[31m%lld %3i died",
+			get_time(), philosopher.seat);
+		if (philosopher.dinner->verbose)
+			printf("%4lld miliseconds ago!",
+				get_time() - philosopher.last_meal_time
+				- philosopher.dinner->time_to_die);
+		printf("\033[0m\n");
+		pthread_mutex_unlock(&philosopher.dinner->print_mutex);
+		return (0);
+	}
+	return (1);
+}
+
 void	will_i_be_dead(t_philosopher philosopher, long long time_it_takes)
 {
-	if (time_it_takes + get_time() > philosopher.last_meal_time + philosopher.dinner->time_to_die)
-		usleep(time_it_takes + get_time() - philosopher.last_meal_time - philosopher.dinner->time_to_die);
+	if (time_it_takes + get_time() > philosopher.last_meal_time
+		+ philosopher.dinner->time_to_die)
+		usleep(time_it_takes + get_time() - philosopher.last_meal_time
+			- philosopher.dinner->time_to_die);
 	else
 		usleep(time_it_takes * 1000);
 }
@@ -176,9 +198,9 @@ int	am_i_already_dead(t_philosopher philosopher)
 			printf("\033[31m%lld %3i died",
 				time_of_death, philosopher.seat);
 			if (philosopher.dinner->verbose)
-			{
-				printf("%4lld miliseconds ago!", time_of_death - philosopher.last_meal_time - philosopher.dinner->time_to_die);
-			}
+				printf("%4lld miliseconds ago!", time_of_death
+					- philosopher.last_meal_time
+					- philosopher.dinner->time_to_die);
 			printf("\033[0m\n");
 		}
 		pthread_mutex_unlock(&philosopher.dinner->print_mutex);
