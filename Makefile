@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/20 19:35:43 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/21 10:57:26 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,8 @@ GRAY	:= \033[1;90m# gray
 YELLOW	:= \033[1;93m# yellow
 ######################################################################### Test #
 #Recomendation: alias t="make test"
-#ARG-TEST	:= 2 62 60 60
-ARG-TEST	:= 200 62 60 60
+#ARG-TEST	:= 200 62 60 60
+ARG-TEST	:= 4 410 200 200 42 
 
 test: all
 	@echo -n "$(YELLOW)" ; \
@@ -62,15 +62,15 @@ test: all
 	"Too many functions in file|Comment is invalid in this scope" \
 	| grep Error ; echo -n "$(COR)" ; \
 	echo "$(YELLOW)	Checking for memory issues $(COR)" ; \
-	valgrind --quiet --show-error-list=yes \
+	valgrind --show-error-list=yes \
 	--leak-check=full --show-leak-kinds=all --track-origins=yes \
 	./philo/philo $(ARG-TEST) && \
 	echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \
-	valgrind --quiet --show-error-list=yes \
+	valgrind --show-error-list=yes \
 	--tool=helgrind \
 	./philo/philo $(ARG-TEST) && \
 	echo "$(YELLOW)	Checking thread issues with DRD $(COR)" ; \
-	valgrind --quiet --show-error-list=yes \
+	valgrind --show-error-list=yes \
 	--tool=drd \
 	./philo/philo $(ARG-TEST) && \
 	echo "$(GRAY)Return value: $$?$(COR)" ; \
