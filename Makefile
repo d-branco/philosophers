@@ -6,33 +6,45 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/22 10:51:01 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/24 10:39:47 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			:= philo/philo
+NAME-BONUS		:= philo_bonus/philo_bonus
 ##################################################################### Compiler #
 CC				:= cc
-CFLAGS			:= -pthread -g -Wall -Wextra
+CFLAGS			:= \
+	-g -pthread \
+	-Wall -Wextra #-Werror 
 ########################################################### Intermidiate steps #
 RM				:= rm -f
 AR				:= ar rcs
 ########################################################## Objects and Headers #
-#HEADERS		:= philo.h
+HEADERS		:= philo.h philo_bonus.h
 SRCS			:= \
 	philo/main.c \
 	philo/initialize.c philo/utils.c \
 	philo/thread.c philo/thread-fork.c philo/thread-try.c
 OBJS			:= $(SRCS:.c=.o)
+SRCS-BONUS		:= \
+	philo_bonus/main_bonus.c \
+	philo_bonus/initialize_bonus.c philo_bonus/utils_bonus.c 
+OBJS-BONUS		:= $(SRCS-BONUS:.c=.o)
 ###################################################################### Targets #
-all: $(NAME)
+all: $(NAME) bonus
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c
+philo: $(NAME)
+
+bonus: $(OBJS-BONUS)
+	@$(CC) $(CFLAGS) $(OBJS-BONUS) -o $(NAME-BONUS)
+
+%.o: %.c 
 	@$(CC) $(CFLAGS) -c $< -o $@ \
-	&& echo "$(GRAY)Compiled:$(COR) $(SRCS)"
+	&& echo "$(GRAY)Compiled:$(COR) $<"
 
 clean:
 	@$(RM) *.o *.gch */*.o */*.gch \
@@ -40,7 +52,7 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME) $(NAME-BONUS) \
-	&& echo "$(GRAY)cleaned$(COR) $(NAME)"
+	&& echo "$(GRAY)cleaned binaries$(COR)"
 
 re: fclean all
 	@echo "$(GRAY)redone$(COR)"

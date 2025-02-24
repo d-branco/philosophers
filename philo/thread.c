@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:51:58 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/21 17:23:35 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/23 19:15:25 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*philosopher_thread(void *arg)
 	enter_loop = 1;
 	first_fork = place_first_fork(&philosopher);
 	second_fork = place_second_fork(&philosopher);
-	usleep(philosopher.seat * 1000);
+	usleep(philosopher.seat * 10 * 1000);
 	pthread_mutex_lock(&philosopher.dinner->print_mutex);
 	if (!philosopher.dinner->n_dead)
 		take_a_seat(&philosopher, first_fork, second_fork);
