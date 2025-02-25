@@ -6,11 +6,13 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:21:28 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 09:35:43 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 10:24:11 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	free_close_unlink(t_dinner *dinner);
 
 //	struct s_dinner
 //		int		verbose;
@@ -29,8 +31,8 @@
 //		long long	last_meal_time;
 int	main(int argc, char **argv)
 {
-	t_dinner	*dinner;
-	int			verbose;
+	t_dinner		*dinner;
+	int				verbose;
 
 	verbose = 1;
 	if (init_arguments(argc, argv, verbose))
@@ -38,10 +40,18 @@ int	main(int argc, char **argv)
 	dinner = initialize_dinner(argc, argv, verbose);
 	if (dinner == NULL)
 		return (2);
+	if (initialize_philosophers(dinner) != 0)
+		return (printf("Philosophers error.\n"), free_close_unlink(dinner), 3);
+	//wait for philosofers
+	free_close_unlink(dinner);
+	return (0);
+}
+
+void	free_close_unlink(t_dinner *dinner)
+{
 	sem_close(dinner->forks);
 	sem_unlink("forks");
 	sem_close(dinner->print);
 	sem_unlink("print");
 	free(dinner);
-	return (0);
 }

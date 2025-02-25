@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:21:59 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 09:19:39 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 10:06:59 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ struct s_philosopher
 //	initialize_bonus.c
 int			init_arguments(int argc, char **argv, int verbose);
 t_dinner	*initialize_dinner(int argc, char **argv, int verbose);
+int		initialize_philosophers(t_dinner *dinner);
 //	utils_bonus.c
 long long	get_time(void);
 int			ft_atoi(const char *nptr);

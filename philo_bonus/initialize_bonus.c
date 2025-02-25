@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:58:52 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 09:21:29 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 10:24:33 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_dinner	*initialize_dinner(int argc, char **argv, int verbose)
 
 	dinner = (t_dinner *)malloc(sizeof(t_dinner));
 	if (dinner == NULL)
-		return (NULL);
+		return (printf("Allocating memory error.\n"), NULL);
 	dinner->verbose = verbose;
 	dinner->n_philosophers = ft_atoi(argv[1]);
 	dinner->time_to_die = ft_atoi(argv[2]);
@@ -59,7 +59,42 @@ t_dinner	*initialize_dinner(int argc, char **argv, int verbose)
 	dinner->n_dead = 0;
 	dinner->forks = sem_open("forks", O_CREAT, 0644, (ft_atoi(argv[1]) / 2));
 	//if (dinner->forks == SEM_FAILED)
+	//	return (printf("Openning semaphore error.\n"), free(dinner), NULL);
 	dinner->print = sem_open("print", O_CREAT, 0644, 1);
 	//if (dinner->print == SEM_FAILED)
+	//	return (printf("Openning semaphore error.\n"), free(dinner), NULL);
 	return (dinner);
+}
+
+//	struct s_philosopher
+//		t_dinner	*dinner;
+//		int			seat;
+//		int			meals_eaten;
+//		long long	last_meal_time;
+int	initialize_philosophers(t_dinner *dinner)
+{
+	int				i;
+	t_philosopher	philosopher;
+
+	i = 0;
+	while (i < dinner->n_philosophers)
+	{
+		if (fork() == -1)
+			return (printf("Forking error.\n"), 1);
+		else
+		{
+			philosopher.dinner = dinner;
+			philosopher.seat = i + 1;
+			philosopher.meals_eaten = 0;
+			philosopher.last_meal_time = get_time();
+			//philosophize(&philosopher);
+			sem_close(dinner->forks);
+			sem_close(dinner->print);
+			free(dinner);
+			exit (0);
+		}
+		i++;
+	}
+	waitpid(0, NULL, 0);
+	return (0);
 }
