@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/25 11:02:15 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/25 11:22:46 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME-BONUS		:= philo_bonus/philo_bonus
 CC				:= cc
 CFLAGS			:= \
 	-g -pthread \
-	-Wall -Wextra #-Werror 
+	-Wall -Wextra -Werror 
 ########################################################### Intermidiate steps #
 RM				:= rm -f
 AR				:= ar rcs

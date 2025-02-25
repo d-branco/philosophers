@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:58:52 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 11:01:15 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:29:53 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ t_dinner	*initialize_dinner(int argc, char **argv, int verbose)
 	if (argc == 5 + 1)
 		dinner->must_eat = ft_atoi(argv[5]);
 	dinner->n_dead = 0;
+	sem_unlink("forks");
 	dinner->forks = sem_open("forks", O_CREAT, 0644, (ft_atoi(argv[1]) / 2));
 	//if (dinner->forks == SEM_FAILED)
 	//	return (printf("Openning semaphore error.\n"), free(dinner), NULL);
+	sem_unlink("print");
 	dinner->print = sem_open("print", O_CREAT, 0644, 1);
 	//if (dinner->print == SEM_FAILED)
 	//	return (printf("Openning semaphore error.\n"), free(dinner), NULL);
