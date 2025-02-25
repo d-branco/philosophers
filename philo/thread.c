@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:51:58 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/23 19:15:25 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 10:35:23 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 //		int			seat;
 //		int			meals_eaten;
 //		long long	last_meal_time;
-//Function to test timestamps:
-//	usleep(philosopher.seat * 100 * 1000);
 void	*philosopher_thread(void *arg)
 {
 	t_philosopher	philosopher;

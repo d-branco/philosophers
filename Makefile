@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/25 10:08:18 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/25 11:02:15 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRCS			:= \
 OBJS			:= $(SRCS:.c=.o)
 SRCS-BONUS		:= \
 	philo_bonus/main_bonus.c \
-	philo_bonus/initialize_bonus.c philo_bonus/utils_bonus.c 
+	philo_bonus/initialize_bonus.c philo_bonus/utils_bonus.c \
+	philo_bonus/routine_bonus.c 
 OBJS-BONUS		:= $(SRCS-BONUS:.c=.o)
 ###################################################################### Targets #
 all: $(NAME) bonus
@@ -74,17 +75,17 @@ test: bonus
 	--leak-check=full --show-leak-kinds=all --track-origins=yes \
 	./philo_bonus/philo_bonus $(ARG-TEST) && \
 	echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \
-	sleep 2 ; \
+	sleep 1 ; \
 	valgrind  --quiet --show-error-list=yes \
 	--tool=helgrind \
 	./philo_bonus/philo_bonus $(ARG-TEST) && \
 	echo "$(YELLOW)	Checking thread issues with DRD $(COR)" ; \
-	sleep 2 ; \
+	sleep 1 ; \
 	valgrind --quiet --show-error-list=yes \
 	--tool=drd \
 	./philo_bonus/philo_bonus $(ARG-TEST) && \
 	echo "$(GRAY)Return value: $$?$(COR)" ; \
-	sleep 2 ; \
+	sleep 1 ; \
 	$(RM) */*.o */*.gch ;\
 	echo -n "$(YELLOW)" ; \
 	norminette | grep -v -E \

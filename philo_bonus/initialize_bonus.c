@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:58:52 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 10:24:33 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:01:15 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,35 @@ int	initialize_philosophers(t_dinner *dinner)
 {
 	int				i;
 	t_philosopher	philosopher;
+	pid_t			*process_id;
 
+	process_id = malloc(sizeof(pid_t) * dinner->n_philosophers);
+	if (process_id == NULL)
+		return (printf("Allocating memory error.\n"), 2);
 	i = 0;
 	while (i < dinner->n_philosophers)
 	{
-		if (fork() == -1)
+		process_id[i] =  fork();
+		if (process_id[i] == -1)
 			return (printf("Forking error.\n"), 1);
-		else
+		else if (process_id[i] == 0)
 		{
 			philosopher.dinner = dinner;
 			philosopher.seat = i + 1;
 			philosopher.meals_eaten = 0;
 			philosopher.last_meal_time = get_time();
-			//philosophize(&philosopher);
+			philosophize(&philosopher);
 			sem_close(dinner->forks);
 			sem_close(dinner->print);
 			free(dinner);
+			free(process_id);
 			exit (0);
 		}
 		i++;
 	}
-	waitpid(0, NULL, 0);
+	i = 0;
+	while (i < dinner->n_philosophers)
+		waitpid(process_id[i++], NULL, 0);
+	free(process_id);
 	return (0);
 }
