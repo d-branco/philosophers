@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:58:52 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/24 16:10:26 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 09:21:29 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ t_dinner	*initialize_dinner(int argc, char **argv, int verbose)
 	dinner->time_to_zzz = ft_atoi(argv[4]);
 	dinner->must_eat = 2147483647;
 	if (argc == 5 + 1)
-	dinner->must_eat = ft_atoi(argv[5]);
+		dinner->must_eat = ft_atoi(argv[5]);
 	dinner->n_dead = 0;
-	dinner->forks = sem_open("forks", O_CREAT, 0644, ft_atoi(argv[1]));
+	dinner->forks = sem_open("forks", O_CREAT, 0644, (ft_atoi(argv[1]) / 2));
 	//if (dinner->forks == SEM_FAILED)
 	dinner->print = sem_open("print", O_CREAT, 0644, 1);
 	//if (dinner->print == SEM_FAILED)

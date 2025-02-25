@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:21:59 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/24 16:08:01 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/25 09:19:39 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ sem_post, sem_wait, sem_unlink
 # include <sys/time.h>	//gettimeofday(),
 # include <signal.h>	//kill(), 
 # include <sys/wait.h>	//waitpid(), 
-#include <fcntl.h>	/* For O_* constants */
-//#include <sys/stat.h>	/* For mode constants */
+# include <fcntl.h>	/* For O_* constants */
+//# include <sys/stat.h>	/* For mode constants */
 # include <semaphore.h>
 	//sem_open(), sem_close(), sem_post(), sem_wait(), sem_unlink(), 
 
