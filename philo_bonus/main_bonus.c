@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:21:28 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 16:34:33 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/26 08:22:14 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,6 @@ void	free_close_unlink(t_dinner *dinner)
 	sem_unlink("forks");
 	sem_close(dinner->print);
 	sem_unlink("print");
-	//if (dinner->verbose)
-	//{
-	//	printf("\n\n\033[103m\033[30m    VALGRIND    "
-	//		" All reachable memory must be freed bellow this line!\n");
-	usleep(500 * 1000);
-	//}
+	usleep((dinner->time_to_die) * 1000);
 	free(dinner);
 }

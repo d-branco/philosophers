@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:31:07 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 16:29:06 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/26 08:29:16 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ void	philosophize(t_philosopher *philosopher)
 		if (am_i_to_think(philosopher))
 			break ;
 	}
+	//sem_post(philosopher->dinner->print);//from am_i_already_dead
 }
 
 
 int	am_i_to_sleep(t_philosopher *philosopher)
 {
 	sem_wait(philosopher->dinner->print);
-	if (!philosopher->dinner->n_dead)
+	if (philosopher->dinner->n_dead == 0)
 		printf("\033[34m%lld %3i is sleeping\033[0m\n",
 			get_time(), philosopher->seat);
 	else
@@ -81,7 +82,7 @@ int	am_i_to_sleep(t_philosopher *philosopher)
 int	am_i_to_think(t_philosopher *philosopher)
 {
 	sem_wait(philosopher->dinner->print);
-	if (!philosopher->dinner->n_dead)
+	if (philosopher->dinner->n_dead == 0)
 		printf("\033[36m%lld %3i is thinking\033[0m\n",
 			get_time(), philosopher->seat);
 	else
@@ -108,6 +109,7 @@ int	am_i_to_eat(t_philosopher *philosopher)
 	if (philosopher->meals_eaten >= philosopher->dinner->must_eat)
 	{
 		sem_post(philosopher->dinner->forks);
+		//return (usleep(5 * 1000), 1);
 		return (1);
 	}
 	will_i_be_dead(philosopher, philosopher->dinner->time_to_eat);
@@ -158,6 +160,7 @@ int	am_i_already_dead(t_philosopher *philosopher)
 					- philosopher->dinner->time_to_die);
 			printf("\033[0m\n");
 		}
+		philosopher->dinner->n_dead++;
 		//sem_post(philosopher->dinner->print);
 		return (1);
 	}
