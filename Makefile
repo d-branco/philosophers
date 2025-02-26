@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/25 15:05:42 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/26 08:56:51 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,9 @@ test: bonus
 	norminette | grep -v -E \
 	"Too many functions in file|Comment is invalid in this scope|Empty line in \
 	function|Consecutive newlines|Space on empty line" \
-	| grep Error ; echo -n "$(COR)"
+	| grep Error ; echo -n "$(COR)" \
+	&& ./philo_bonus/philo_bonus 3 402 200 200 40
+
 
 #For thread testing in the mandatory part
 #echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \

@@ -6,59 +6,52 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:31:07 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 16:29:06 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/26 09:55:54 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	take_fork(t_philosopher *philosopher);
-int	am_i_already_dead(t_philosopher *philosopher);
+int		take_fork(t_philosopher *philosopher);
+int		am_i_already_dead(t_philosopher *philosopher);
 void	will_i_be_dead(t_philosopher *philosopher, long long time_it_takes);
-int	am_i_to_eat(t_philosopher *philosopher);
-int	am_i_to_sleep(t_philosopher *philosopher);
-int	am_i_to_think(t_philosopher *philosopher);
+int		am_i_to_eat(t_philosopher *philosopher);
+int		am_i_to_sleep(t_philosopher *philosopher);
+int		am_i_to_think(t_philosopher *philosopher);
 
 void	philosophize(t_philosopher *philosopher)
 {
-	usleep((philosopher->seat % 2) * 1000);
+	int	multi;
+	//usleep((philosopher->seat % 2) * 1000);
 	sem_wait(philosopher->dinner->print);
 	if (philosopher->dinner->verbose)
 		printf("A wild philosopher has appeared at %i\n", philosopher->seat);
 	sem_post(philosopher->dinner->print);
-	while (1)
+	multi = 1;
+	if (philosopher->dinner->n_philosophers == 1)
 	{
-
 		
-		//take fork
+		multi = 0;
+		printf("\033[35m%lld %3i has taken a fork\033[0m\n",
+			get_time(), philosopher->seat);
+		usleep(philosopher->dinner->time_to_die * 1000);
+		am_i_already_dead(philosopher);
+	}
+	while (multi)
+	{
 		if (take_fork(philosopher))
 			break ;
-		//eat
 		if (am_i_to_eat(philosopher))
-			break ;		
-		//am i dead
-
-		
-		//dro-drop the forks
+			break ;
 		sem_post(philosopher->dinner->forks);
 		if (philosopher->meals_eaten > philosopher->dinner->must_eat)
 			break ;
-		
-		//am i dead
 		if (am_i_already_dead(philosopher))
 			break ;
-
-			
-		//sleep
 		if (am_i_to_sleep(philosopher))
 			break ;
-		
-		//am i dead
 		if (am_i_already_dead(philosopher))
 			break ;
-
-		
-		//think
 		if (am_i_to_think(philosopher))
 			break ;
 	}
@@ -68,7 +61,7 @@ void	philosophize(t_philosopher *philosopher)
 int	am_i_to_sleep(t_philosopher *philosopher)
 {
 	sem_wait(philosopher->dinner->print);
-	if (!philosopher->dinner->n_dead)
+	if (philosopher->dinner->n_dead == 0)
 		printf("\033[34m%lld %3i is sleeping\033[0m\n",
 			get_time(), philosopher->seat);
 	else
@@ -81,14 +74,14 @@ int	am_i_to_sleep(t_philosopher *philosopher)
 int	am_i_to_think(t_philosopher *philosopher)
 {
 	sem_wait(philosopher->dinner->print);
-	if (!philosopher->dinner->n_dead)
+	if (philosopher->dinner->n_dead == 0)
 		printf("\033[36m%lld %3i is thinking\033[0m\n",
 			get_time(), philosopher->seat);
 	else
 		return (1);
 	sem_post(philosopher->dinner->print);
 	if (get_time() + 100
-		< philosopher->last_meal_time	+ philosopher->dinner->time_to_die)
+		< philosopher->last_meal_time + philosopher->dinner->time_to_die)
 		usleep(5000);
 	return (0);
 }
@@ -108,6 +101,7 @@ int	am_i_to_eat(t_philosopher *philosopher)
 	if (philosopher->meals_eaten >= philosopher->dinner->must_eat)
 	{
 		sem_post(philosopher->dinner->forks);
+		//return (usleep(5 * 1000), 1);
 		return (1);
 	}
 	will_i_be_dead(philosopher, philosopher->dinner->time_to_eat);
@@ -158,6 +152,7 @@ int	am_i_already_dead(t_philosopher *philosopher)
 					- philosopher->dinner->time_to_die);
 			printf("\033[0m\n");
 		}
+		philosopher->dinner->n_dead++;
 		//sem_post(philosopher->dinner->print);
 		return (1);
 	}
