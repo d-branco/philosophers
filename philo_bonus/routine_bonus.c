@@ -127,8 +127,8 @@ void	will_i_be_dead(t_philosopher *philosopher, long long time_it_takes)
 {
 	if (time_it_takes + get_time() > philosopher->last_meal_time
 		+ philosopher->dinner->time_to_die)
-		usleep(time_it_takes + get_time() - philosopher->last_meal_time
-			- philosopher->dinner->time_to_die);
+		usleep((time_it_takes + get_time() - philosopher->last_meal_time
+			- philosopher->dinner->time_to_die + 1) * 1000);
 	else
 		usleep(time_it_takes * 1000);
 }

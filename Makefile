@@ -15,8 +15,9 @@ NAME-BONUS		:= philo_bonus/philo_bonus
 ##################################################################### Compiler #
 CC				:= cc
 CFLAGS			:= \
-	-g -pthread \
-	-Wall -Wextra -Werror 
+	-Wall -Wextra -Werror \
+	-pthread \
+	-g 
 ########################################################### Intermidiate steps #
 RM				:= rm -f
 AR				:= ar rcs
