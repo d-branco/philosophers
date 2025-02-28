@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/26 08:56:51 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/28 16:51:43 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,9 @@ YELLOW	:= \033[1;93m# yellow
 ######################################################################### Test #
 #Recomendation: alias t="make test"
 #ARG-TEST	:= 200 62 60 60
-ARG-TEST	:= 5 240 60 60 21
+#ARG-TEST	:= 5 240 60 60 21
+#ARG-TEST	:= 402 200 200 40
+ARG-TEST	:= 5 140 60 60 42
 
 test: bonus
 	@echo "$(YELLOW)	Checking for memory issues $(COR)" ; \
@@ -82,8 +84,7 @@ test: bonus
 	norminette | grep -v -E \
 	"Too many functions in file|Comment is invalid in this scope|Empty line in \
 	function|Consecutive newlines|Space on empty line" \
-	| grep Error ; echo -n "$(COR)" \
-	&& ./philo_bonus/philo_bonus 3 402 200 200 40
+	| grep Error ; echo -n "$(COR)" 
 
 
 #For thread testing in the mandatory part

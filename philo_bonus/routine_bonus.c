@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:31:07 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/26 18:34:42 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:23:17 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		am_i_to_think(t_philosopher *philosopher);
 void	philosophize(t_philosopher *philosopher)
 {
 	int	multi;
-	//usleep((philosopher->seat % 2) * 1000);
+	//usleep((philosopher->seat % 2) * 2 * 1000);
 	sem_wait(philosopher->dinner->print);
 	if (philosopher->dinner->verbose)
 		printf("A wild philosopher has appeared at %i\n", philosopher->seat);
@@ -36,6 +36,17 @@ void	philosophize(t_philosopher *philosopher)
 			get_time(), philosopher->seat);
 		usleep(philosopher->dinner->time_to_die * 1000);
 		am_i_already_dead(philosopher);
+	}
+	else if ((philosopher->dinner->n_philosophers % 2 != 0)
+		&& (philosopher->dinner->time_to_die - 10
+			<= (2 * philosopher->dinner->time_to_eat
+				+ philosopher->dinner->time_to_zzz))
+		&& (philosopher->dinner->n_philosophers == philosopher->seat))
+	{
+		usleep((philosopher->dinner->time_to_die + philosopher->last_meal_time
+				- get_time() + 1) * 1000);
+		am_i_already_dead(philosopher);
+		multi = 0;
 	}
 	while (multi)
 	{
@@ -81,9 +92,9 @@ int	am_i_to_think(t_philosopher *philosopher)
 	else
 		return (1);
 	sem_post(philosopher->dinner->print);
-	if (get_time() + 100
+	if (get_time() + 10
 		< philosopher->last_meal_time + philosopher->dinner->time_to_die)
-		usleep(5000);
+		usleep(5 * 1000);
 	return (0);
 }
 
@@ -127,8 +138,8 @@ void	will_i_be_dead(t_philosopher *philosopher, long long time_it_takes)
 {
 	if (time_it_takes + get_time() > philosopher->last_meal_time
 		+ philosopher->dinner->time_to_die)
-		usleep((time_it_takes + get_time() - philosopher->last_meal_time
-			- philosopher->dinner->time_to_die + 1) * 1000);
+		usleep((philosopher->last_meal_time + philosopher->dinner->time_to_die
+				- get_time() + 1) * 1000);
 	else
 		usleep(time_it_takes * 1000);
 }

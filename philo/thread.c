@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:51:58 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 10:35:23 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:23:30 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*philosopher_thread(void *arg)
 	enter_loop = 1;
 	first_fork = place_first_fork(&philosopher);
 	second_fork = place_second_fork(&philosopher);
-	usleep(philosopher.seat * 10 * 1000);
+	//usleep(philosopher.seat * 10 * 1000);
 	pthread_mutex_lock(&philosopher.dinner->print_mutex);
 	if (!philosopher.dinner->n_dead)
 		take_a_seat(&philosopher, first_fork, second_fork);
@@ -72,6 +72,17 @@ int	multi_philosopher_case(t_philosopher *philosopher)
 		pthread_mutex_unlock(&philosopher->dinner->print_mutex);
 		return (0);
 	}
+	else if ((philosopher->dinner->n_philosophers % 2 != 0)
+		&& (philosopher->dinner->time_to_die - 10
+			<= (2 * philosopher->dinner->time_to_eat
+				+ philosopher->dinner->time_to_zzz))
+		&& (philosopher->dinner->n_philosophers == philosopher->seat))
+	{
+		usleep((philosopher->dinner->time_to_die + philosopher->last_meal_time
+				- get_time() + 1) * 1000);
+		am_i_already_dead(philosopher);
+		return (0);
+	}
 	return (1);
 }
 
@@ -79,8 +90,8 @@ void	will_i_be_dead(t_philosopher *philosopher, long long time_it_takes)
 {
 	if (time_it_takes + get_time() > philosopher->last_meal_time
 		+ philosopher->dinner->time_to_die)
-		usleep((time_it_takes + get_time() - philosopher->last_meal_time
-			- philosopher->dinner->time_to_die + 1) * 1000);
+		usleep((philosopher->last_meal_time + philosopher->dinner->time_to_die
+				- get_time() + 1) * 1000);
 	else
 		usleep(time_it_takes * 1000);
 }
