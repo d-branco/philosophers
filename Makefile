@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/28 16:51:43 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/02/28 20:36:15 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ OBJS			:= $(SRCS:.c=.o)
 SRCS-BONUS		:= \
 	philo_bonus/main_bonus.c \
 	philo_bonus/initialize_bonus.c philo_bonus/utils_bonus.c \
-	philo_bonus/routine_bonus.c 
+	philo_bonus/routine_bonus.c philo_bonus/routines_bonus.c 
 OBJS-BONUS		:= $(SRCS-BONUS:.c=.o)
 ###################################################################### Targets #
 all: $(NAME) bonus

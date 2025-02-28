@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:21:28 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/28 17:01:51 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:29:57 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(int argc, char **argv)
 		return (2);
 	if (initialize_philosophers(dinner) != 0)
 		return (printf("Philosophers error.\n"), free_close_unlink(dinner), 3);
-	//wait for philosofers
 	free_close_unlink(dinner);
 	return (0);
 }

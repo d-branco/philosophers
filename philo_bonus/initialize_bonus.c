@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 09:58:52 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/26 08:14:38 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:37:54 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ t_dinner	*initialize_dinner(int argc, char **argv, int verbose)
 	dinner->n_dead = 0;
 	sem_unlink("forks");
 	dinner->forks = sem_open("forks", O_CREAT, 0644, (ft_atoi(argv[1]) / 2));
-	//if (dinner->forks == SEM_FAILED)
-	//	return (printf("Openning semaphore error.\n"), free(dinner), NULL);
+	if (dinner->forks == SEM_FAILED)
+		return (printf("Openning semaphore error.\n"), free(dinner), NULL);
 	sem_unlink("print");
 	dinner->print = sem_open("print", O_CREAT, 0644, 1);
-	//if (dinner->print == SEM_FAILED)
-	//	return (printf("Openning semaphore error.\n"), free(dinner), NULL);
+	if (dinner->print == SEM_FAILED)
+		return (printf("Openning semaphore error.\n"), free(dinner), NULL);
 	return (dinner);
 }
 
@@ -75,18 +75,28 @@ t_dinner	*initialize_dinner(int argc, char **argv, int verbose)
 //		long long	last_meal_time;
 int	initialize_philosophers(t_dinner *dinner)
 {
-	int				i;
 	t_philosopher	*philosophers;
 	pid_t			*process_id;
 
 	process_id = malloc(sizeof(pid_t) * dinner->n_philosophers);
 	if (process_id == NULL)
 		return (printf("Allocating memory error.\n"), 2);
-
-
 	philosophers = malloc(sizeof(t_philosopher) * dinner->n_philosophers);
 	if (philosophers == NULL)
 		return (free(process_id), printf("Allocating memory error.\n"), 2);
+	initialize_struct(philosophers, dinner);
+	if (fork_it(philosophers, dinner, process_id) != 0)
+		return (printf("Forking error.\n"), 1);
+	waitpid(-1, NULL, 0);
+	free(philosophers);
+	free(process_id);
+	return (0);
+}
+
+void	initialize_struct(t_philosopher *philosophers, t_dinner *dinner)
+{
+	int	i;
+
 	i = 0;
 	while (i < dinner->n_philosophers)
 	{
@@ -96,8 +106,12 @@ int	initialize_philosophers(t_dinner *dinner)
 		philosophers[i].last_meal_time = get_time();
 		i++;
 	}
+}
 
-		
+int	fork_it(t_philosopher *philosophers, t_dinner *dinner, pid_t *process_id)
+{
+	int	i;
+
 	i = 0;
 	while (i < dinner->n_philosophers)
 	{
@@ -106,7 +120,7 @@ int	initialize_philosophers(t_dinner *dinner)
 		{
 			free(philosophers);
 			free(process_id);
-			return (printf("Forking error.\n"), 1);
+			return (1);
 		}
 		else if (process_id[i] == 0)
 		{
@@ -120,11 +134,5 @@ int	initialize_philosophers(t_dinner *dinner)
 		}
 		i++;
 	}
-	//i = 0;
-	//while (i < dinner->n_philosophers)
-	//	waitpid(process_id[i++], NULL, 0);
-	waitpid(-1, NULL, 0);
-	free(philosophers);
-	free(process_id);
 	return (0);
 }

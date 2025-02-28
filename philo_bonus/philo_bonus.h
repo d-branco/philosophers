@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 19:21:59 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/25 14:55:05 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:35:20 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,18 @@ int			initialize_philosophers(t_dinner *dinner);
 //	utils_bonus.c
 long long	get_time(void);
 int			ft_atoi(const char *nptr);
+void		initialize_struct(t_philosopher *philosophers, t_dinner *dinner);
+int			fork_it(t_philosopher *philosophers, t_dinner *dinner,
+				pid_t *process_id);
 //	routine_bonus.c
 void		philosophize(t_philosopher *philosopher);
+int			am_i_already_dead(t_philosopher *philosopher);
+void		will_i_be_dead(t_philosopher *philosopher, long long time_it_takes);
+int			looping_philosopher(t_philosopher *philosopher);
+//	routines_bonus.c
+int			am_i_to_eat(t_philosopher *philosopher);
+int			am_i_to_sleep(t_philosopher *philosopher);
+int			am_i_to_think(t_philosopher *philosopher);
+int			take_fork(t_philosopher *philosopher);
 
 #endif
