@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/02/28 20:36:15 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/03/02 13:40:36 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,31 +70,28 @@ YELLOW	:= \033[1;93m# yellow
 #ARG-TEST	:= 200 62 60 60
 #ARG-TEST	:= 5 240 60 60 21
 #ARG-TEST	:= 402 200 200 40
-ARG-TEST	:= 5 140 60 60 42
-
-test: bonus
-	@echo "$(YELLOW)	Checking for memory issues $(COR)" ; \
-	valgrind --show-error-list=yes \
-	--leak-check=full --show-leak-kinds=all --track-origins=yes \
-	./philo_bonus/philo_bonus $(ARG-TEST) && \
-	echo "$(COR)$(GRAY)Return value: $$?$(COR)" ; \
-	sleep 1 ; \
-	$(RM) */*.o */*.gch ;\
-	echo -n "$(YELLOW)" ; \
-	norminette | grep -v -E \
-	"Too many functions in file|Comment is invalid in this scope|Empty line in \
-	function|Consecutive newlines|Space on empty line" \
-	| grep Error ; echo -n "$(COR)" 
-
-
-#For thread testing in the mandatory part
-#echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \
+#ARG-TEST	:= 5 140 60 60 42
+#
+#test: all
+#	@echo "$(YELLOW)	Checking for memory issues $(COR)" ; \
+#	valgrind --show-error-list=yes \
+#	--leak-check=full --show-leak-kinds=all --track-origins=yes \
+#	./philo/philo $(ARG-TEST) && \
+#	echo "$(COR)$(GRAY)Return value: $$?$(COR)" ; \
+#	sleep 1 ; \
+#	echo "$(YELLOW)	Checking thread issues with helgrind $(COR)" ; \
 #	sleep 1 ; \
 #	valgrind  --quiet --show-error-list=yes \
 #	--tool=helgrind \
-#	./philo_bonus/philo_bonus $(ARG-TEST) && \
-#echo "$(YELLOW)	Checking thread issues with DRD $(COR)" ; \
+#	./philo/philo $(ARG-TEST) && \
+#	echo "$(YELLOW)	Checking thread issues with DRD $(COR)" ; \
 #	sleep 1 ; \
 #	valgrind --quiet --show-error-list=yes \
 #	--tool=drd \
-#	./philo_bonus/philo_bonus $(ARG-TEST) && \
+#	./philo/philo $(ARG-TEST) && \
+#	$(RM) */*.o */*.exe */*.gch ;\
+#	echo -n "$(YELLOW)" ; \
+#	norminette | grep -v -E \
+#	"Too many functions in file|Comment is invalid in this scope|Empty line in \
+#	function|Consecutive newlines|Space on empty line" \
+#	| grep Error ; echo -n "$(COR)" 
