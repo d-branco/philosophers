@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:31:07 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/03/03 12:01:57 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:43:46 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,29 @@ void	philosophize(t_philosopher *philosopher)
 	}
 }
 
+//sem_wait(philosopher->dinner->print);
+//sem_post(philosopher->dinner->print);
 int	looping_philosopher(t_philosopher *philosopher)
 {
 	if (philosopher->dinner->n_philosophers == 1)
 	{
-		//sem_wait(philosopher->dinner->print);
 		printf("\033[35m%lld %3i has taken a fork\033[0m\n",
 			get_time(), philosopher->seat);
-		//sem_post(philosopher->dinner->print);
-		usleep((philosopher->dinner->time_to_die + 1)* 1000);
+		usleep((philosopher->dinner->time_to_die + 1) * 1000);
 		am_i_already_dead(philosopher);
 		return (0);
 	}
-	else if (((philosopher->dinner->n_philosophers % 2) != 0)
-	&& (philosopher->dinner->n_philosophers == philosopher->seat))
+	else if ((philosopher->dinner->time_to_die - 3
+			<= (2 * philosopher->dinner->time_to_eat))
+		&& (philosopher->dinner->n_philosophers == philosopher->seat))
 	{
 		usleep((philosopher->dinner->time_to_die + philosopher->last_meal_time
-			- get_time() + 1) * 1000);
-			am_i_already_dead(philosopher);
-			return (0);
-		}
-		return (1);
+				- get_time() + 1) * 1000);
+		am_i_already_dead(philosopher);
+		return (0);
 	}
-//&& (philosopher->dinner->time_to_die - 3 <= (2 * philosopher->dinner->time_to_eat + philosopher->dinner->time_to_zzz))
+	return (1);
+}
 
 void	will_i_be_dead(t_philosopher *philosopher, long long time_it_takes)
 {
