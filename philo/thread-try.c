@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 17:04:47 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/26 08:36:13 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 11:45:05 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	think_or_die_trying(t_philosopher *philosopher)
 		return (1);
 	}
 	pthread_mutex_unlock(&philosopher->dinner->print_mutex);
-	if (get_time() + 100
+	if (get_time() + 10
 		< philosopher->last_meal_time + philosopher->dinner->time_to_die)
-		usleep(5000);
+		usleep(5 * 1000);
 	return (0);
 }

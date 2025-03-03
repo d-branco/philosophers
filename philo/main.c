@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:33:47 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/28 21:33:31 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 11:36:45 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	pthread_t		*threads;
 	int				i;
 
-	verbose = 0;
+	verbose = 1;
 	if (init_arguments(argc, argv, verbose))
 		return (1);
 	dinner = initialize_dinner(argc, argv, verbose);

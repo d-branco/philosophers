@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:51:58 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/03/03 09:58:47 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 12:02:51 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	multi_philosopher_case(t_philosopher *philosopher)
 		pthread_mutex_lock(&philosopher->dinner->print_mutex);
 		printf("\033[35m%lld %3i has taken a fork\033[0m\n",
 			get_time(), philosopher->seat);
-		usleep(philosopher->dinner->time_to_die * 1000);
+		usleep((philosopher->dinner->time_to_die + 1) * 1000);
 		printf("\033[31m%lld %3i died",
 			get_time(), philosopher->seat);
 		if (philosopher->dinner->verbose)
