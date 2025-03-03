@@ -6,23 +6,20 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:31:07 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/03/03 12:43:46 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:19:08 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-//usleep((philosopher->seat % 2) * 2 * 1000);
 void	philosophize(t_philosopher *philosopher)
 {
-	int	multi;
-
 	sem_wait(philosopher->dinner->print);
 	if (philosopher->dinner->verbose)
 		printf("A wild philosopher has appeared at %i\n", philosopher->seat);
 	sem_post(philosopher->dinner->print);
-	multi = looping_philosopher(philosopher);
-	while (multi)
+	usleep((philosopher->seat % 2) * 2 * 1000);
+	while (looping_philosopher(philosopher))
 	{
 		if (take_fork(philosopher))
 			break ;

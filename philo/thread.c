@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:51:58 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/03/03 12:34:23 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:11:19 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*philosopher_thread(void *arg)
 	int				second_fork;
 
 	philosopher = *(t_philosopher *)arg;
+	usleep((philosopher.seat % 2) * 2 * 1000);
 	enter_loop = 1;
 	first_fork = place_first_fork(&philosopher);
 	second_fork = place_second_fork(&philosopher);
