@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:51:58 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/28 20:29:38 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 09:58:47 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	multi_philosopher_case(t_philosopher *philosopher)
 		pthread_mutex_unlock(&philosopher->dinner->print_mutex);
 		return (0);
 	}
-	else if ((philosopher->dinner->time_to_die - 3
+	else if ((philosopher->dinner->n_philosophers % 2 != 0)
+		&& (philosopher->dinner->time_to_die - 3
 			<= (2 * philosopher->dinner->time_to_eat
 				+ philosopher->dinner->time_to_zzz))
 		&& (philosopher->dinner->n_philosophers == philosopher->seat))

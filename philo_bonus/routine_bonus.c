@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:31:07 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/02/28 20:33:52 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/03 10:23:11 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	looping_philosopher(t_philosopher *philosopher)
 		am_i_already_dead(philosopher);
 		return (0);
 	}
-	else if ((philosopher->dinner->time_to_die - 3
+	else if (((philosopher->dinner->n_philosophers % 2) != 0)
+		&& (philosopher->dinner->time_to_die - 3
 			<= (2 * philosopher->dinner->time_to_eat
 				+ philosopher->dinner->time_to_zzz))
 		&& (philosopher->dinner->n_philosophers == philosopher->seat))
