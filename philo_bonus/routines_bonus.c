@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 20:34:15 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/03/03 13:51:29 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/06 00:51:31 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	am_i_to_eat(t_philosopher *philosopher)
 	if (philosopher->meals_eaten >= philosopher->dinner->must_eat)
 	{
 		sem_post(philosopher->dinner->forks);
-		return (1);
+		usleep(philosopher->dinner->time_to_die * 1000);
+		exit (1);
 	}
 	will_i_be_dead(philosopher, philosopher->dinner->time_to_eat);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:31:07 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/03/03 14:19:08 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/06 00:38:24 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,14 @@ int	am_i_already_dead(t_philosopher *philosopher)
 		> philosopher->last_meal_time + philosopher->dinner->time_to_die)
 	{
 		sem_wait(philosopher->dinner->print);
-		if (philosopher->dinner->n_dead == 0)
-		{
-			philosopher->dinner->n_dead = philosopher->dinner->n_dead + 1;
-			printf("\033[31m%lld %3i died",
-				time_of_death, philosopher->seat);
-			if (philosopher->dinner->verbose)
-				printf("%4lld miliseconds ago!", time_of_death
-					- philosopher->last_meal_time
-					- philosopher->dinner->time_to_die);
-			printf("\033[0m\n");
-		}
-		philosopher->dinner->n_dead++;
-		return (1);
+		printf("\033[31m%lld %3i died",
+			time_of_death, philosopher->seat);
+		if (philosopher->dinner->verbose)
+			printf("%4lld miliseconds ago!", time_of_death
+				- philosopher->last_meal_time
+				- philosopher->dinner->time_to_die);
+		printf("\033[0m\n");
+		exit (1);
 	}
 	return (0);
 }
