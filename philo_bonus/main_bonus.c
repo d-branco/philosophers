@@ -6,7 +6,7 @@
 /*   By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:21:28 by abessa-m          #+#    #+#             */
-/*   Updated: 2025/03/06 00:49:06 by abessa-m         ###   ########.fr       */
+/*   Updated: 2025/03/06 13:08:46 by abessa-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 	t_dinner		*dinner;
 	int				verbose;
 
-	verbose = 1;
+	verbose = 0;
 	if (init_arguments(argc, argv, verbose))
 		return (1);
 	dinner = initialize_dinner(argc, argv, verbose);
