@@ -34,9 +34,9 @@ int	am_i_to_think(t_philosopher *philosopher)
 	else
 		return (1);
 	sem_post(philosopher->dinner->print);
-	if (get_time() + 10
+	if (get_time() + 8
 		< philosopher->last_meal_time + philosopher->dinner->time_to_die)
-		usleep(5 * 1000);
+		usleep(4 * 1000);
 	return (0);
 }
 

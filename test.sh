@@ -2,6 +2,7 @@ make clean
 
 echo "                                                    MANDATORY"
 make philo
+make clean
 
 wait_for_keypress()
 {
@@ -56,58 +57,59 @@ check_alive()
 	fi
 }
 
-check_dead	"philo/philo 1 800 200 200 99				"
-check_alive	"philo/philo 2 800 200 200 99				"
-check_alive	"philo/philo 5 400 100 100 99				"
+check_dead	"philo/philo 5 410 200 200 14				"
+check_dead	"philo/philo 5 310 200 100 14				"
+check_alive	"philo/philo 5 400 100 100 14				"
+check_alive	"philo/philo 4 410 200 200 14				"
+check_dead	"philo/philo 4 310 200 100 14				"
+
+check_dead	"philo/philo 1 800 200 200 14				"
+check_alive	"philo/philo 2 800 200 200 14				"
 check_alive	"philo/philo 5 800 200 200 7				"
-check_alive	"philo/philo 4 410 200 200 99				"
-check_dead	"philo/philo 4 310 200 100 99				"
 
-check_dead	"philo/philo 5 410 200 200 99				"
-check_dead	"philo/philo 5 310 200 100 99				"
-
-check_dead	"philo/philo 4 310 200 100 99				"
-check_dead	"philo/philo 9 410 200 200 99				"
-check_alive	"philo/philo 8 410 200 200 99				"
-check_alive	"philo/philo 5 800 200 200 99				"
-check_alive	"philo/philo 4 410 200 200 99				"
-check_dead	"philo/philo 2 60 60 60 99					"
-check_dead	"philo/philo 6 7 28 1 99					"
-check_dead	"philo/philo 6 10 40 2 99					"
-check_dead	"philo/philo 6 12 48 3 99					"
-check_dead	"philo/philo 6 15 60 4 99					"
-check_dead	"philo/philo 7 7 28 1 99					"
-check_dead	"philo/philo 7 10 40 2 99					"
-check_dead	"philo/philo 7 12 48 3 99					"
-check_dead	"philo/philo 7 15 60 4 99					"
+check_dead	"philo/philo 4 310 200 100 14				"
+check_dead	"philo/philo 9 410 200 200 14				"
+check_alive	"philo/philo 8 410 200 200 14				"
+check_alive	"philo/philo 5 800 200 200 14				"
+check_alive	"philo/philo 4 410 200 200 14				"
+check_dead	"philo/philo 2 60 60 60 14					"
+check_dead	"philo/philo 6 7 28 1 14					"
+check_dead	"philo/philo 6 10 40 2 14					"
+check_dead	"philo/philo 6 12 48 3 14					"
+check_dead	"philo/philo 6 15 60 4 14					"
+check_dead	"philo/philo 7 7 28 1 14					"
+check_dead	"philo/philo 7 10 40 2 14					"
+check_dead	"philo/philo 7 12 48 3 14					"
+check_dead	"philo/philo 7 15 60 4 14					"
 
 echo "                                                    BONUS"
 make bonus
+make clean
 
-check_dead	"philo_bonus/philo_bonus 1 800 200 200 99"
-check_alive	"philo_bonus/philo_bonus 2 800 200 200 99"
-check_alive	"philo_bonus/philo_bonus 5 400 100 100 99"
+check_dead	"philo_bonus/philo_bonus 5 410 200 200 14"
+check_dead	"philo_bonus/philo_bonus 5 310 200 100 14"
+check_alive	"philo_bonus/philo_bonus 5 400 100 100 14"
+check_alive	"philo_bonus/philo_bonus 4 410 200 200 14"
+check_dead	"philo_bonus/philo_bonus 4 310 200 100 14"
+
+check_dead	"philo_bonus/philo_bonus 1 800 200 200 14"
+check_alive	"philo_bonus/philo_bonus 2 800 200 200 14"
 check_alive	"philo_bonus/philo_bonus 5 800 200 200 7	"
-check_alive	"philo_bonus/philo_bonus 4 410 200 200 99"
-check_dead	"philo_bonus/philo_bonus 4 310 200 100 99"
 
-check_dead	"philo_bonus/philo_bonus 5 410 200 200 99"
-check_dead	"philo_bonus/philo_bonus 5 310 200 100 99"
-
-check_dead	"philo_bonus/philo_bonus 4 310 200 100 99	"
-check_dead	"philo_bonus/philo_bonus 9 410 200 200 99	"
-check_alive "philo_bonus/philo_bonus 8 410 200 200 99	"
-check_alive "philo_bonus/philo_bonus 5 800 200 200 99	"
-check_alive "philo_bonus/philo_bonus 4 410 200 200 99	"
-check_dead	"philo_bonus/philo_bonus 2 60 60 60 99		"
-check_dead	"philo_bonus/philo_bonus 6 7 28 1 99		"
-check_dead	"philo_bonus/philo_bonus 6 10 40 2 99		"
-check_dead	"philo_bonus/philo_bonus 6 12 48 3 99		"
-check_dead	"philo_bonus/philo_bonus 6 15 60 4 99		"
-check_dead	"philo_bonus/philo_bonus 7 7 28 1 99		"
-check_dead	"philo_bonus/philo_bonus 7 10 40 2 99		"
-check_dead	"philo_bonus/philo_bonus 7 12 48 3 99		"
-check_dead	"philo_bonus/philo_bonus 7 15 60 4 99		"
+check_dead	"philo_bonus/philo_bonus 4 310 200 100 14	"
+check_dead	"philo_bonus/philo_bonus 9 410 200 200 14	"
+check_alive "philo_bonus/philo_bonus 8 410 200 200 14	"
+check_alive "philo_bonus/philo_bonus 5 800 200 200 14	"
+check_alive "philo_bonus/philo_bonus 4 410 200 200 14	"
+check_dead	"philo_bonus/philo_bonus 2 60 60 60 14		"
+check_dead	"philo_bonus/philo_bonus 6 7 28 1 14		"
+check_dead	"philo_bonus/philo_bonus 6 10 40 2 14		"
+check_dead	"philo_bonus/philo_bonus 6 12 48 3 14		"
+check_dead	"philo_bonus/philo_bonus 6 15 60 4 14		"
+check_dead	"philo_bonus/philo_bonus 7 7 28 1 14		"
+check_dead	"philo_bonus/philo_bonus 7 10 40 2 14		"
+check_dead	"philo_bonus/philo_bonus 7 12 48 3 14		"
+check_dead	"philo_bonus/philo_bonus 7 15 60 4 14		"
 
 make fclean
 

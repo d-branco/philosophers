@@ -73,7 +73,8 @@ int	multi_philosopher_case(t_philosopher *philosopher)
 		return (0);
 	}
 	else if ((philosopher->dinner->time_to_die - 3
-			<= (2 * philosopher->dinner->time_to_eat))
+			<= ((2 + (philosopher->dinner->n_philosophers % 2))
+				* philosopher->dinner->time_to_eat))
 		&& (philosopher->dinner->n_philosophers == philosopher->seat))
 		return (usleep(1000 * (philosopher->dinner->time_to_die - get_time() + 1
 					+ philosopher->last_meal_time)),

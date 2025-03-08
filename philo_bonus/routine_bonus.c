@@ -52,7 +52,8 @@ int	looping_philosopher(t_philosopher *philosopher)
 		return (0);
 	}
 	else if ((philosopher->dinner->time_to_die - 3
-			<= (2 * philosopher->dinner->time_to_eat))
+			<= ((2 + (philosopher->dinner->n_philosophers % 2))
+				* philosopher->dinner->time_to_eat))
 		&& (philosopher->dinner->n_philosophers == philosopher->seat))
 	{
 		usleep((philosopher->dinner->time_to_die + philosopher->last_meal_time
