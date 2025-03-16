@@ -6,7 +6,7 @@
 #    By: abessa-m <abessa-m@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 15:07:00 by abessa-m          #+#    #+#              #
-#    Updated: 2025/03/02 13:40:36 by abessa-m         ###   ########.fr        #
+#    Updated: 2025/03/16 15:59:34 by abessa-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,9 @@ $(NAME): $(OBJS)
 
 philo: $(NAME)
 
-bonus: $(OBJS-BONUS)
+bonus: $(NAME-BONUS)
+
+$(NAME-BONUS): $(OBJS-BONUS)
 	@$(CC) $(CFLAGS) $(OBJS-BONUS) -o $(NAME-BONUS)
 
 %.o: %.c 
